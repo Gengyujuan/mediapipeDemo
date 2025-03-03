@@ -4,23 +4,6 @@ import numpy as np
 angle_ROM:  关节活动度，以cb为参考线，计算直线ba与cb的夹角的角度值
 """
 def angle_ROM(a, b, c):
-    # # 向量
-    # ba = b - a
-    # cb = c - b
-    # # 向量的模（长度）
-    # ba_magnitude = np.linalg.norm(ba)
-    # cb_magnitude = np.linalg.norm(cb)
-    # if ba_magnitude == 0 or cb_magnitude == 0:  # 两点重合
-    #     return None
-    # # 向量的点积
-    # dot_product = np.dot(ba, cb)
-    # # 夹角的 cos 值
-    # angle = np.arccos(dot_product / (ba_magnitude * cb_magnitude))
-    # # 返回夹角的角度值
-    # # return round(np.degrees(angle))  # 返回四舍五入后的整数
-    # return int(np.ceil(np.degrees(angle)))  # 向上取整并转换为整数
-    # # return np.degrees(angle)
-    # 向量
     ba = b - a
     cb = c - b
     # 向量的模（长度）
