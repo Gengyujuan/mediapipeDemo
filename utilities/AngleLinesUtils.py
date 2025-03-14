@@ -27,7 +27,7 @@ def angle_ROM(a, b, c):
     return int(np.ceil(np.degrees(angle)))
 
 
-# lines_extension:  肢体de延长线
+
 def lines_extension(a, b, c, len):
     a = np.array(a)
     b = np.array(b)
@@ -51,9 +51,6 @@ def lines_extension(a, b, c, len):
 
     end_ba = tuple(np.round(end_ba).astype(int))
     end_cb = tuple(np.round(end_cb).astype(int))
-
-    # angle_start = int(np.degrees(np.arctan2(unit_vector_cb[1], unit_vector_cb[0])))
-    # angle_end = int(np.degrees(np.arctan2(unit_vector_ba[1], unit_vector_ba[0])))
     # 计算角度并确保在 [0, 360) 范围内
     angle_start = int(np.degrees(np.arctan2(unit_vector_cb[1], unit_vector_cb[0]))) % 360
     angle_end = int(np.degrees(np.arctan2(unit_vector_ba[1], unit_vector_ba[0]))) % 360

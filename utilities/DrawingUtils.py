@@ -19,10 +19,6 @@ def draw_angle_lines(img, a, b, c, DrawingTools):
 
     end_ba,end_cb,angle_start,angle_end = lines_extension(a, b, c, extension_len)
 
-    # 绘制延长线
-    cv2.line(img, tuple(b), end_ba, DrawingTools.getTrajectoryColor(), DrawingTools.thickness)
-    cv2.line(img, tuple(b), end_cb, DrawingTools.getTrajectoryColor(), DrawingTools.thickness)
-
     # 在 cb 延长线的末尾段绘制箭头
     arrow_thickness = 2  # 箭头的粗细
     cv2.arrowedLine(img, tuple(b), end_cb, DrawingTools.getTrajectoryColor(), arrow_thickness)
@@ -70,21 +66,20 @@ PoseJoint = {
     "LEFT_KNEE_FLEXION": (mpPose.PoseLandmark.LEFT_ANKLE, mpPose.PoseLandmark.LEFT_KNEE, mpPose.PoseLandmark.LEFT_HIP)
 }
 
-
+# 使用 pose处理图像
 def drawlimbLines(img, connections):
     drawingTools = DrawingTools(20, 60)
     imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     results = pose.process(imgRGB)
 
-
+    # for index, lm in enumerate(results.pose_landmarks.landmark):
+    #     print(lm)
     if results.pose_landmarks:
         mpDraw.draw_landmarks(img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
         landmarks = results.pose_landmarks.landmark
         h, w, _ = img.shape
         points = [(int(lm.x * w), int(lm.y * h)) for lm in landmarks]
 
-        # print(f"connections:{connections}")
         # 确保连接的点是有效的
-        # for connection in connections:
         a, b, c = connections  # 使用 PoseJoint 字典来获取连接点
         draw_angle_lines(img, points[a], points[b], points[c], drawingTools)
