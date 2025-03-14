@@ -1,6 +1,7 @@
 import cv2
 from utilities.DrawingTools import DrawingTools
 from utilities.DrawingUtils import draw_angle_lines
+import time
 #===========================================================导入mediapipe模型 初始化模型===============================================================
 import mediapipe as mp
 
@@ -26,6 +27,7 @@ def drawHandsLines(img,connections):
     if results.multi_hand_landmarks:
         # 遍历所有检测到的手部
         for handLms in results.multi_hand_landmarks:
+            # print(handLms)
             mpDraw.draw_landmarks(
                 image=img,
                 landmark_list=handLms,
@@ -48,7 +50,7 @@ def drawHandsLines(img,connections):
 
 #打开电脑的摄像头
 cap = cv2.VideoCapture(0)
-
+pTime = 0  # 循环之前初始化为0
 count = 0
 # 循环读取视频帧
 while cap.isOpened():
@@ -60,6 +62,11 @@ while cap.isOpened():
 
     # 处理之后的图片
     drawHandsLines(frame, INDEX_FINGER_MCP)
+
+    # cTime = time.time()  # 处理完一帧图像的时间
+    # fps = 1 / (cTime - pTime)  # 即为FPS
+    # pTime = cTime  # 重置起始时间
+    # cv2.putText(frame, str(int(fps)), (70, 50), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 3)
 
     # 显示处理后的图像
     cv2.imshow("Pose Estimation", frame)
