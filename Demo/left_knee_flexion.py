@@ -2,7 +2,9 @@ import cv2
 from utilities.DrawingUtils import drawlimbLines,PoseJoint
 
 # 打开电脑的摄像头
-cap = cv2.VideoCapture(0)
+path = 'rtsp://admin:ZZSlxh309309@192.168.43.207:554/Streaming/Channels/101'
+cap = cv2.VideoCapture(path)
+# cap = cv2.VideoCapture(0)
 
 count = 0
 # 循环读取视频帧

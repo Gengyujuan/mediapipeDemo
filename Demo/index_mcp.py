@@ -49,7 +49,9 @@ def drawHandsLines(img,connections):
 
 
 #打开电脑的摄像头
-cap = cv2.VideoCapture(0)
+path = 'rtsp://admin:ZZSlxh309309@169.254.17.108:554/Streaming/Channels/101'
+cap = cv2.VideoCapture(path)
+# cap = cv2.VideoCapture(0)
 pTime = 0  # 循环之前初始化为0
 count = 0
 # 循环读取视频帧

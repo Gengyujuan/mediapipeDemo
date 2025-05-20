@@ -15,15 +15,17 @@ def draw_landmarks_on_image(rgb_image, detection_result):
   pose_landmarks_list = detection_result.pose_landmarks
   annotated_image = np.copy(rgb_image)
 
-  # Loop through the detected poses to visualize.
+  # 存放检测到的姿态识别关键点
   for idx in range(len(pose_landmarks_list)):
     pose_landmarks = pose_landmarks_list[idx]
 
-    # Draw the pose landmarks.
+    # 显示检测到的每一帧图像
+    # 建一个NormalizedLandmarkList对象，并将当前人体姿态的关键点数据填充到这个对象中。每个关键点包含x, y, z坐标。
     pose_landmarks_proto = landmark_pb2.NormalizedLandmarkList()
     pose_landmarks_proto.landmark.extend([
       landmark_pb2.NormalizedLandmark(x=landmark.x, y=landmark.y, z=landmark.z) for landmark in pose_landmarks
     ])
+    # 在图像上绘制关键点后再返回图像
     solutions.drawing_utils.draw_landmarks(
       annotated_image,
       pose_landmarks_proto,
@@ -34,9 +36,7 @@ def draw_landmarks_on_image(rgb_image, detection_result):
 
 # STEP 2: Create an PoseLandmarker object.
 base_options = python.BaseOptions(model_asset_path='pose_landmarker.task')
-options = vision.PoseLandmarkerOptions(
-    base_options=base_options,
-    output_segmentation_masks=True)
+options = vision.PoseLandmarkerOptions(base_options=base_options,output_segmentation_masks=True)
 detector = vision.PoseLandmarker.create_from_options(options)
 
 # STEP 3: Load the input image.
